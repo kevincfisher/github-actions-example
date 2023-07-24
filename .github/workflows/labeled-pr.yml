@@ -1,0 +1,11 @@
+name: Labeled PR Example
+on:
+  pull_request:
+    types: [labeled]
+jobs:
+  Run-If-Labeled:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.label.name == 'bug' }}
+    steps:
+      - name: Run a one-line script
+        run: echo "This is a bug. Make sure you file a ticket for it."
