@@ -3,7 +3,7 @@ on:
   pull_request:
     branches:
       - master
-      - dev
+      - develop
 jobs:
   cypress-run:
     runs-on: ubuntu-22.04 # use a static version to prevent breaking changes
