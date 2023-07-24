@@ -1,0 +1,11 @@
+name: Scheduled Workflow
+on:
+  schedule:
+    - cron: '*/5 11 * * 1' # Every 5 minutes on Monday after 11 AM
+jobs:
+  poll-every-5-minutes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Poll every 5 minutes
+        run: |
+          echo "Polling every 5 minutes"

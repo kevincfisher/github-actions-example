@@ -1,0 +1,36 @@
+name: Cypress Tests
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04 # use a static version to prevent breaking changes
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: Install PNPM
+        run: npm i -g pnpm
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          build: pnpm run build
+          start: pnpm run start
+      - name: Upload test screenshot artifacts
+        uses: actions/upload-artifact@v3
+        # add the line below to store screenshots only on failures
+        # if: failure()
+        with:
+          name: cypress-screenshots
+          path: cypress/screenshots
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
+      - name: Upload test video artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: cypress-videos
+          path: cypress/videos
+          if-no-files-found: ignore # 'warn' or 'error' are also available, defaults to `warn`
